@@ -1,119 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Atlas City — First Cut</title>
-  <style>
-:root{--ink:#1f2a2e;--paper:#f8f0df;--blue:#4a88b8;--orange:#df9b55;--green:#78a76f;--muted:#6c6a60}*{box-sizing:border-box}body{margin:0;background:#111;font-family:Inter,Segoe UI,Arial,sans-serif;color:var(--ink)}.stage{width:100vw;height:100vh;overflow:hidden;position:relative;background:#f7eddc}.scene{position:absolute;inset:0;opacity:0;pointer-events:none;transition:opacity 900ms ease;overflow:hidden}.scene.active{opacity:1;pointer-events:auto}.controls{position:fixed;bottom:16px;left:50%;transform:translateX(-50%);background:rgba(20,20,20,.82);color:white;padding:10px 16px;border-radius:999px;display:flex;gap:10px;align-items:center;z-index:99;box-shadow:0 10px 40px #0008}.controls button,.controls select{border:0;border-radius:999px;padding:8px 14px}.controls button{background:#fff;color:#111;font-weight:700}.controls span{min-width:180px;color:#ddd}.scene-copilot{display:grid;grid-template-columns:260px 1fr;background:#f6f7fb}.copilot-nav{background:#f0f2f7;border-right:1px solid #dfe3ea;padding:18px;display:flex;flex-direction:column;gap:10px}.brand-dot{width:26px;height:26px;border-radius:8px;background:linear-gradient(135deg,#3b82f6,#8b5cf6,#10b981);float:left}.brand{font-size:22px;font-weight:750;margin:0 0 20px 36px}.copilot-nav button{background:white;border:1px solid #e2e7ef;text-align:left;padding:12px 14px;border-radius:12px;color:#29323c}.recent{margin-top:30px;color:#5d6876;display:flex;gap:10px;flex-direction:column;font-size:14px}.copilot-main{padding:26px}.topbar{display:flex;justify-content:space-between;color:#56616f;margin-bottom:22px}.user-pill{background:white;padding:8px 16px;border-radius:999px;box-shadow:0 2px 14px #0001}.chat-card{max-width:1040px;height:78vh;background:white;border-radius:28px;margin:auto;padding:42px 58px;box-shadow:0 30px 80px #33415522}.chat-card h1{font-size:42px;margin:0}.prompt{font-size:24px;color:#667085}.chat-history{height:45vh;overflow:hidden;display:flex;flex-direction:column;gap:12px}.message{padding:12px 16px;border-radius:16px;max-width:84%;font-size:18px;animation:shrinkIn .45s ease}.message.user{align-self:flex-end;background:#e8f1ff}.message.ai{align-self:flex-start;background:#f4f5f7}.message.stop{font-weight:950;color:#b42318;background:#fff1f0;font-size:30px;letter-spacing:.03em}.message.stop:nth-last-child(1){font-size:42px}.typing-row{font-size:38px;font-weight:750;min-height:58px;padding-top:10px}.cursor{display:inline-block;width:4px;height:42px;background:#111;margin-left:5px;vertical-align:middle;animation:blink .8s steps(1) infinite}@keyframes blink{50%{opacity:0}}@keyframes shrinkIn{from{transform:scale(1.08);opacity:.6}to{transform:scale(1);opacity:1}}.scene-transition{background:#fff8ea;display:grid;place-items:center}
-.image-card{position:absolute;inset:7%;border-radius:30px;background-size:cover;background-position:center;box-shadow:0 28px 90px #0005;border:10px solid rgba(255,248,232,.85);opacity:.18;filter:saturate(.9) contrast(.98)}
-.scene-map .image-card,.scene-studio .image-card{opacity:.9;filter:none}.scene-map .blueprint,.scene-studio .studio-building{background:rgba(251,244,230,.78);backdrop-filter:blur(2px)}.paper-rip{font-size:34px;letter-spacing:.03em;color:#2c3538}.ink-line{width:0;height:4px;background:#1f2a2e;margin:auto auto 24px;animation:drawLine 4s forwards}.scene-transition.active .ink-line{animation:drawLine 4s forwards}@keyframes drawLine{to{width:76vw}}.scene-journey{background:linear-gradient(#8ed2ff,#fff0c7 58%,#d99658 59%,#bf7b3b)}.sun{position:absolute;right:15%;top:12%;width:90px;height:90px;border-radius:50%;background:#fff1a8;box-shadow:0 0 70px #fff1a8}.cloud{position:absolute;width:190px;height:54px;background:#fff9;border-radius:50px}.c1{top:18%;left:10%;animation:drift 20s linear infinite}.c2{top:10%;left:55%;animation:drift 28s linear infinite}.mountains{position:absolute;bottom:33%;left:0;width:100%;height:210px;background:linear-gradient(145deg,transparent 45%,#8e755e 46% 55%,transparent 56%),linear-gradient(35deg,transparent 43%,#6f8e8a 44% 54%,transparent 55%);opacity:.85}.desert{position:absolute;bottom:0;width:100%;height:38%;background:linear-gradient(#c88449,#a86435)}.road{position:absolute;bottom:-8%;left:39%;width:22%;height:50%;background:#333;clip-path:polygon(43% 0,57% 0,100% 100%,0 100%)}.atlas-sign{position:absolute;left:50%;bottom:21%;transform:translateX(-50%);background:#7a4a2c;color:#fff4d6;border:8px solid #4a2c18;border-radius:10px;padding:22px 50px;text-align:center;box-shadow:0 12px 0 #442815;font-family:Georgia,serif}.atlas-sign span{display:block;font-size:20px}.atlas-sign strong{display:block;font-size:54px;letter-spacing:.06em}.atlas-sign em{display:block;font-size:19px}.cactus{position:absolute;bottom:25%;width:18px;height:95px;background:#376b39;border-radius:14px}.ca{left:18%}.cb{right:20%;height:130px}.location-tags{position:absolute;top:10%;left:8%;font-size:42px;font-weight:800;color:#fff;text-shadow:0 2px 20px #0006}.desk{position:absolute;inset:0;background:radial-gradient(circle at 50% 42%,#fff8e9,#d7b886);display:grid;place-items:center}.blueprint{position:relative;width:82vw;height:72vh;background:#fbf4e6;border:2px solid #1f2a2e;padding:28px;box-shadow:0 30px 80px #4f351a66}.blueprint h2{text-align:center;font-family:Georgia,serif;font-size:34px}.map-node{position:absolute;border:2px solid #1f2a2e;border-radius:18px;padding:13px 18px;background:#fffdf8;font-weight:800}.studio{left:42%;top:16%}.platform{left:40%;top:40%;border-style:dashed}.ofac{left:15%;top:68%;background:#fff6f4}.payee{left:43%;top:67%;background:#fffaf0}.disb{right:11%;top:68%;background:#f6fbff}.airport{right:2%;bottom:5%;border-style:dashed}.map-lines{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}.map-lines path{fill:none;stroke:#2c3538;stroke-width:3;stroke-dasharray:12 10}.studio-building{position:absolute;inset:8%;border-radius:38px;background:linear-gradient(135deg,#fff4df,#d7f0ec);box-shadow:0 30px 80px #0003;padding:28px;text-align:center}.studio-building h2{font-size:42px;font-family:Georgia,serif}.model-city{position:absolute;left:43%;top:42%;width:170px;height:110px;background:linear-gradient(90deg,#b6d7a8,#e6b980);border-radius:50%;box-shadow:0 0 0 16px #ffffff80}.person{position:absolute;width:64px;height:64px;border-radius:50%;display:grid;place-items:center;background:#fff;border:3px solid #222;font-size:13px;font-weight:900}.eng{left:32%;top:34%}.bus{left:58%;top:34%}.arch{left:62%;top:48%}.pm{left:28%;top:48%}.se{left:38%;top:60%}.qa{left:56%;top:60%}.kiro{left:48%;top:29%;background:#dbeafe}.teams-screen{position:absolute;right:6%;top:15%;width:250px;background:#1f2937;color:#fff;border-radius:16px;padding:14px}.faces{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin-top:10px}.faces span{background:#3b82f6;border-radius:8px;padding:8px 2px;font-size:11px}.discoveries{position:absolute;left:5%;bottom:10%;width:260px;background:#fff8c9;border:2px solid #8a6a20;transform:rotate(-2deg);display:flex;flex-direction:column;gap:8px;padding:14px;text-align:left}.scene-platform,.scene-districts,.scene-sitevisits,.scene-ending{background:#f8f0df;padding:48px;text-align:center}.scene-platform h2,.scene-districts h2,.scene-sitevisits h2{font-family:Georgia,serif;font-size:48px}.city-base{position:relative;margin:30px auto;width:86vw;height:62vh;background:linear-gradient(#e2c79d,#c7ddba);border-radius:30px;overflow:hidden;border:3px solid #243}.utility{position:absolute;background:#fffdf4;border:2px solid #222;border-radius:16px;padding:16px;font-weight:800}.roads{left:38%;top:43%;width:24%;height:18%;background:#333;color:white}.water{left:8%;top:20%}.library{left:20%;top:58%}.academy{right:20%;top:58%}.safety{right:10%;top:20%}.lights{left:43%;top:12%}.police-car{position:absolute;left:15%;bottom:18%;font-size:38px;animation:drive 6s infinite alternate}@keyframes drive{to{left:75%}}.district{position:absolute;bottom:18%;background:#fff;border:3px solid #1f2a2e;border-radius:18px;width:230px;padding:14px;display:flex;flex-direction:column;gap:7px;box-shadow:0 20px 50px #0002}.district span{border-top:1px solid #ddd;padding-top:7px}.ofac-tower{left:8%;height:360px}.payee-plaza{left:39%;height:250px;background:#fff6db}.disb-tower{right:14%;height:360px;background:#eef7ff}.api-pipe{right:4%;height:360px;width:86px;border-radius:50px;background:#d9eefc}.site-card{margin:8vh auto 0;width:680px;min-height:260px;background:#fff;border:3px solid #1f2a2e;border-radius:30px;box-shadow:0 30px 80px #0002;display:grid;place-items:center;font-size:34px;line-height:1.4}.sunset-city{position:absolute;inset:0;background:linear-gradient(#f5a55e,#60425a 60%,#141822)}.closing-lines{position:absolute;inset:0;display:grid;place-content:center;color:white;font-family:Georgia,serif;font-size:36px;text-shadow:0 4px 20px #000}.closing-lines p{margin:12px}.closing-lines strong{margin-top:40px;font-size:42px}@keyframes drift{to{transform:translateX(40vw)}}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atlas City</title>
 
-</style>
+    <style>
+        body{
+            margin:0;
+            background:#111;
+            color:white;
+            font-family:Segoe UI,Arial,sans-serif;
+            display:flex;
+            justify-content:center;
+            align-items:center;
+            height:100vh;
+            flex-direction:column;
+        }
+
+        h1{
+            font-size:56px;
+            margin-bottom:10px;
+        }
+
+        p{
+            color:#bbbbbb;
+            font-size:22px;
+        }
+    </style>
 </head>
+
 <body>
-  <div id="app">
-    <div id="stage" class="stage">
-      <section class="scene scene-copilot active" data-scene="copilot">
-        <aside class="copilot-nav">
-          <div class="brand-dot"></div><div class="brand">Copilot</div>
-          <button>+ New chat</button><button>Search</button><button>Library</button><button>Work</button><button>History</button>
-          <div class="recent"><b>Recent</b><span>Q3 Planning</span><span>Claims Payments</span><span>Atlas?</span></div>
-        </aside>
-        <main class="copilot-main">
-          <div class="topbar"><span>Protected Work Chat</span><span class="user-pill">Jeff</span></div>
-          <div class="chat-card">
-            <h1>Good morning, Jeff.</h1>
-            <p class="prompt">What’s on your mind today?</p>
-            <div id="chatHistory" class="chat-history"></div>
-            <div class="typing-row"><span id="typingText"></span><span class="cursor"></span></div>
-          </div>
-        </main>
-      </section>
 
-      <section class="scene scene-transition" data-scene="transition">
-        <div class="paper-rip"><div class="ink-line"></div><div class="visual-summary">Generating visual summary...</div></div>
-      </section>
+<h1>🏙️ Atlas City</h1>
 
-      <section class="scene scene-journey" data-scene="journey">
-        <div class="sky"></div><div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div>
-        <div class="location-tags"><span id="journeyLabel">Hollywood</span></div>
-        <div class="mountains"></div><div class="desert"></div><div class="road"></div><div class="cactus ca"></div><div class="cactus cb"></div>
-        <div class="atlas-sign"><span>WELCOME TO</span><strong>ATLAS CITY</strong><em>A city under construction</em></div>
-      </section>
+<p>The cranes have arrived.</p>
 
-      <section class="scene scene-map" data-scene="map">
-        <div class="desk"><div class="image-card" style="background-image:url('a_detailed_architectural_concept_illustration_in.png')"></div><div class="blueprint">
-          <h2>Atlas City Master Plan</h2>
-          <div class="map-node studio">Atlas Design Studio</div>
-          <div class="map-node platform">Platform Utilities</div>
-          <div class="map-node ofac">OFAC Campus</div>
-          <div class="map-node payee">Payee Plaza</div>
-          <div class="map-node disb">Disbursement District</div>
-          <div class="map-node airport">Gateway Airport</div>
-          <svg class="map-lines" viewBox="0 0 1000 600"><path d="M500 110 C500 190 500 220 500 270 C360 330 300 380 255 455"/><path d="M500 270 C510 340 520 390 515 460"/><path d="M500 270 C650 335 720 390 765 455"/><path d="M765 455 C835 480 890 515 925 550"/></svg>
-        </div></div>
-      </section>
-
-      <section class="scene scene-studio" data-scene="studio">
-        <div class="image-card" style="background-image:url('a_highly_detailed_cinematic_stylized_illustratio.png')"></div><div class="studio-building"><h2>Atlas Design Studio</h2><div class="model-city"></div>
-          <div class="person eng">ENG</div><div class="person bus">BUS</div><div class="person arch">ARCH</div><div class="person pm">PM</div><div class="person se">SE</div><div class="person qa">QA</div><div class="person kiro">KIRO</div>
-          <div class="teams-screen"><b>Chennai Engineering Studio</b><div class="faces"><span>Dev</span><span>Dev</span><span>Dev</span><span>Dev</span><span>QA</span></div></div>
-          <div class="discoveries"><b>What We’re Discovering</b><span>Build two domains.</span><span>Reduce cycle time.</span><span>Mistakes are tuition.</span></div>
-        </div>
-      </section>
-
-      <section class="scene scene-platform" data-scene="platform">
-        <h2>Platform Awakens</h2><div class="city-base"><div class="utility roads">Roads</div><div class="utility water">Water Works</div><div class="utility library">Public Library</div><div class="utility academy">Atlas Academy</div><div class="utility safety">Public Safety</div><div class="utility lights">Traffic + Signals</div><div class="police-car">🚔</div></div>
-      </section>
-
-      <section class="scene scene-districts" data-scene="districts">
-        <h2>The City Opens for Site Visits</h2>
-        <div class="district ofac-tower"><b>OFAC Campus</b><span>Ingestion</span><span>Screening</span><span>Fuzzy Lab</span><span>Case Mgmt</span><span>Notifications</span></div>
-        <div class="district payee-plaza"><b>Payee Plaza</b><span>Payee Mgmt</span><span>Payee Get Ops</span><span>API Gateway</span></div>
-        <div class="district disb-tower"><b>Disbursement District</b><span>Query</span><span>Ingest</span><span>Cancel</span><span>Status Update</span><span>Future</span></div>
-        <div class="district api-pipe"><b>EFT API</b></div>
-      </section>
-
-      <section class="scene scene-sitevisits" data-scene="sitevisits">
-        <h2>Site Visits</h2>
-        <div id="siteVisitCard" class="site-card"></div>
-      </section>
-
-      <section class="scene scene-ending" data-scene="ending">
-        <div class="sunset-city"></div>
-        <div class="closing-lines"><p>Transforming ideas into working capabilities...</p><p>Quarter by quarter.</p><p>Sprint by sprint.</p><p>Day by day.</p><strong>Rome wasn’t built in a day.<br/>What makes you think Atlas was?</strong></div>
-      </section>
-    </div>
-    <div class="controls"><button id="playBtn">Play</button><button id="pauseBtn">Pause</button><button id="restartBtn">Restart</button><span id="sceneName">Ready</span><label>Speed <select id="speed"><option value="1">1x</option><option value="1.5">1.5x</option><option value="2">2x</option></select></label></div>
-  </div>
-  <script>
-
-(function(){
-const state={playing:false,speed:1,timers:[],audio:null,runId:0};
-const siteVisits=["🏦 Treasury Tower\nDisbursement Query Service\nLive Demo Stop","🚨 OFAC Screening Center\nScreening Service\nLive Demo Stop","🧠 OFAC Fuzzy Lab\nFuzzy Logic + Historical Testing\nLive Demo Stop","👤 Payee Plaza\nPayee Management Gateway\nLive Demo Stop"];
-function $(id){return document.getElementById(id)}
-function showScene(name){document.querySelectorAll('.scene').forEach(s=>s.classList.toggle('active',s.dataset.scene===name)); const sn=$('sceneName'); if(sn) sn.textContent=name;}
-function clearTimers(){state.timers.forEach(clearTimeout); state.timers=[];}
-function wait(ms, runId){return new Promise(r=>{const t=setTimeout(()=>{ if(runId===state.runId) r(); },ms/state.speed);state.timers.push(t);});}
-async function ensureAudio(){try{if(!state.audio){const AC=window.AudioContext||window.webkitAudioContext; if(AC) state.audio=new AC();} if(state.audio && state.audio.state==='suspended') await state.audio.resume();}catch(e){console.log('Audio disabled:',e)}}
-function clickSound(){try{if(!state.audio)return; const ctx=state.audio; const now=ctx.currentTime; const o=ctx.createOscillator(); const g=ctx.createGain(); const f=ctx.createBiquadFilter(); o.frequency.value=180+Math.random()*520; o.type='square'; f.type='highpass'; f.frequency.value=900; g.gain.setValueAtTime(.045,now); g.gain.exponentialRampToValueAtTime(.001,now+.045); o.connect(f); f.connect(g); g.connect(ctx.destination); o.start(now); o.stop(now+.05); const o2=ctx.createOscillator(); const g2=ctx.createGain(); o2.frequency.value=90+Math.random()*110; o2.type='triangle'; g2.gain.setValueAtTime(.018,now); g2.gain.exponentialRampToValueAtTime(.001,now+.035); o2.connect(g2); g2.connect(ctx.destination); o2.start(now); o2.stop(now+.04);}catch(e){}}
-async function typeInto(text,target,runId,speed=45){target.textContent=''; for(const ch of text){ if(!state.playing||runId!==state.runId) return; target.textContent+=ch; if(ch!==' ') clickSound(); await wait(speed+Math.random()*35,runId);} }
-function pushMessage(text,cls='ai'){const h=$('chatHistory'); if(!h)return; const div=document.createElement('div'); div.className='message '+cls; div.textContent=text; h.appendChild(div); h.scrollTop=h.scrollHeight;}
-async function copilotScene(runId){showScene('copilot'); const t=$('typingText'); $('chatHistory').innerHTML=''; await wait(900,runId); await typeInto('What has Team Atlas been up to these days?',t,runId,46); await wait(450,runId); pushMessage(t.textContent,'user'); t.textContent=''; await wait(900,runId); const searches=['Thinking...','Searching Netflix...','Searching Greek Mythology...','Searching History Channel...','Searching Confluence...','Searching CSAA internal projects...']; for(const s of searches){await typeInto(s,t,runId,38); await wait(420,runId); pushMessage('✓ '+t.textContent,'ai'); t.textContent=''; await wait(340,runId);} await typeInto('Once upon a time, Atlas was meeting with Hercules and Paymentus...',t,runId,62); await wait(900,runId); pushMessage(t.textContent,'ai'); t.textContent=''; await typeInto('Correction: I meant Prometheus.',t,runId,58); await wait(650,runId); pushMessage(t.textContent,'ai'); t.textContent=''; await wait(600,runId); const stops=[['Stop.',750],['STOP.',900],['STOP!!!',1250]]; for(const [s,hold] of stops){await typeInto(s,t,runId,42); await wait(hold,runId); pushMessage(t.textContent,'stop'); t.textContent=''; await wait(250,runId);} await typeInto('I meant TEAM ATLAS!!',t,runId,42); await wait(700,runId); pushMessage(t.textContent,'user'); t.textContent=''; await wait(950,runId); await typeInto("YOU'RE RIGHT. Sorry, I have been binge watching Blood of Zeus on Netflix.",t,runId,42); await wait(900,runId); pushMessage(t.textContent,'ai'); t.textContent=''; await wait(650,runId); await typeInto('Let me focus now. You mean Team Atlas working on DPT - TSP for Outbound Payments...',t,runId,38); await wait(700,runId); pushMessage(t.textContent,'ai'); t.textContent=''; await wait(400,runId); await typeInto('Generating visual summary...',t,runId,42); await wait(1150,runId);}
-async function journeyScene(runId){showScene('transition'); await wait(2200,runId); showScene('journey'); const label=$('journeyLabel'); for(const l of ['Hollywood','Los Angeles','Grand Canyon','Camelback Mountain','Phoenix','Atlas City']){if(label) label.textContent=l; await wait(1100,runId);} await wait(900,runId);}
-async function run(){state.runId++; const runId=state.runId; state.playing=true; clearTimers(); await ensureAudio(); if($('playBtn')) $('playBtn').textContent='Playing'; await copilotScene(runId); if(!state.playing||runId!==state.runId)return; await journeyScene(runId); if(!state.playing||runId!==state.runId)return; showScene('map'); await wait(3200,runId); showScene('studio'); await wait(3600,runId); showScene('platform'); await wait(3600,runId); showScene('districts'); await wait(3600,runId); showScene('sitevisits'); const card=$('siteVisitCard'); for(const v of siteVisits){if(card) card.textContent=v; await wait(2200,runId);} showScene('ending'); await wait(5000,runId); state.playing=false; if($('playBtn')) $('playBtn').textContent='Play';}
-function pause(){state.playing=false; state.runId++; clearTimers(); if($('playBtn')) $('playBtn').textContent='Play';}
-function restart(){pause(); showScene('copilot'); setTimeout(run,120);}
-window.addEventListener('DOMContentLoaded',()=>{
-  showScene('copilot');
-  $('playBtn')?.addEventListener('click',()=>{ if(!state.playing) run(); });
-  $('pauseBtn')?.addEventListener('click',pause);
-  $('restartBtn')?.addEventListener('click',restart);
-  $('speed')?.addEventListener('change',e=>state.speed=Number(e.target.value));
-});
-})();
-
-</script>
 </body>
 </html>
