@@ -11,3 +11,19 @@ P0
 [ ] Blood of Zeus
 
 [ ] Arizona Transition
+
+Epic 2
+
+Atlas Design Studio
+
+P0
+
+[ ] Team artwork
+
+[ ] Chennai Team
+
+[ ] Kiro
+
+[ ] PM
+
+[ ] Architect
